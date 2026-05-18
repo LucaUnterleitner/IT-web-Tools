@@ -160,37 +160,6 @@ input[type="number"]:focus {
     align-items: center;
 }
 
-.hero {
-    background: var(--deep-red);
-    color: #ffffff;
-    border-radius: 8px;
-    padding: 40px 36px;
-    margin-bottom: 32px;
-}
-
-.hero-badge {
-    display: inline-block;
-    background: rgba(255, 255, 255, 0.15);
-    border-radius: 4px;
-    padding: 3px 10px;
-    font-size: 12px;
-    font-weight: 600;
-    letter-spacing: 0.05em;
-    margin-bottom: 14px;
-}
-
-.hero-title {
-    margin: 0 0 10px;
-    font-size: 28px;
-    line-height: 1.2;
-}
-
-.hero-sub {
-    margin: 0;
-    font-size: 15px;
-    color: rgba(255, 255, 255, 0.8);
-    max-width: 480px;
-}
 
 #ergebnis {
     margin-top: 24px;
@@ -202,24 +171,6 @@ input[type="number"]:focus {
     white-space: pre;
 }
 
-.zurückbutton {
-    position: fixed;
-    top: 15px;
-    right: 20px;
-    padding: 5px 10px;
-    background-color: var(--primary);
-    border-radius: 6px;
-}
-
-.zurückbutton a {
-    color: #ffffff;
-    text-decoration: none;
-}
-
-.p1 {
-    font-size: 24px;
-    font-weight: bold;
-}
 
 .index-hero {
     min-height: 100vh;

@@ -17,33 +17,40 @@
             <a href="portmap.html">Portmap</a>
         </div>
         <main>
-            <h1 class="tool-panel-title">Passwort Generator</h1>
-                <button id="btnGenerieren">Passwort generieren</button>
-                <button id="länge">Länge ändern</button>
+            <div class="tool-panel">
+                <h1 class="tool-panel-title">Passwort Generator</h1>
+                <div class="input-row">
+                    <input type="number" id="laenge" value="12" min="4" max="128" placeholder="Länge">
+                    <button id="btnGenerieren">Generieren</button>
+                    <button id="btnKopieren">Kopieren</button>
+                </div>
                 <div id="ergebnis"></div>
-            <script>
-                var laenge = 12;
-                document.getElementById("btnGenerieren").addEventListener("click", function() {
-                    var zeichen = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+";
-                    var passwort = "";
-                    for (var i = 0; i < laenge; i++) {
-                        passwort += zeichen.charAt(Math.floor(Math.random() * zeichen.length));
-                    }
-                    document.getElementById("ergebnis").textContent = "Generiertes Passwort: " + passwort;
-                    
-                });
-                document.getElementById("länge").addEventListener("click", function() {
-                    var neueLaenge = prompt("Geben Sie die gewünschte Länge des Passworts ein:", "12");
-                    if (neueLaenge !== null && !isNaN(neueLaenge) && neueLaenge > 0) {
-                        laenge = parseInt(neueLaenge);
-                        alert("Die Länge des Passworts wurde auf " + laenge + " geändert.");
-                    } else {
-                        alert("Ungültige Eingabe. Bitte geben Sie eine positive Zahl ein.");
-                    }
-                });
-            </script>
-
+            </div>
         </main>
+
+        <script>
+        const zeichen = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+";
+
+        function generieren() {
+            const laenge = parseInt(document.getElementById("laenge").value);
+            const array = new Uint32Array(laenge);
+            crypto.getRandomValues(array);
+            let passwort = "";
+            for (let i = 0; i < laenge; i++) {
+                passwort += zeichen[array[i] % zeichen.length];
+            }
+            document.getElementById("ergebnis").textContent = passwort;
+        }
+
+        document.getElementById("btnGenerieren").addEventListener("click", generieren);
+
+        document.getElementById("btnKopieren").addEventListener("click", function () {
+            const text = document.getElementById("ergebnis").textContent;
+            if (!text) return;
+            navigator.clipboard.writeText(text);
+            this.textContent = "Kopiert!";
+            setTimeout(() => this.textContent = "Kopieren", 1500);
+        });
+        </script>
     </body>
 </html>
-
