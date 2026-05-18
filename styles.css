@@ -221,8 +221,6 @@ input[type="number"]:focus {
     font-weight: bold;
 }
 
-/* ── Index Startseite ── */
-
 .index-hero {
     min-height: 100vh;
     display: flex;
@@ -265,4 +263,35 @@ input[type="number"]:focus {
 .index-hero-btn:hover {
     background-color: rgba(255, 255, 255, 0.15);
     text-decoration: none;
+}
+.port-card {
+    border: 1px solid #000000;
+    border-radius: 10px;
+    padding: 16px 20px;
+    text-align: center;
+    min-width: 100px;
+}
+
+.port-card h2 {
+    margin: 0 0 6px;
+    font-size: 16px;
+    color: var(--accent);
+}
+
+.port-card p {
+    margin: 0;
+    font-size: 14px;
+    color: var(--muted);
+}
+
+.ports {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 40px 20px;
+    border: 3px solid var(--deep-red);
+    border-radius: 8px;
+    margin-bottom: 40px;
+
 }
