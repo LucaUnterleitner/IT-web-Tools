@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="de">
+    <head>
+        <meta charset="UTF-8">
+        <title>Subnetzrechner – IT-Web Tools</title>
+        <link rel="icon" type="image/png" href="../icons8-macbook-einstellungen-windows-11-color-32.png">
+        <link rel="stylesheet" href="../styles.css">
+        <style>
+            #ip   { width: 220px; }
+            #cidr { width: 110px; }
+        </style>
+    </head>
+    <body>
+        <div id="sidebar">
+            <img class="sidebar-logo" src="../logo.png" alt="BearingPoint Logo">
+            <h1>IT-Web Tools</h1>
+            <h5>ein tool wählen</h5>
+            <a href="../index.html">Startseite</a>
+            <a href="subnetzrechner.html">Subnetzrechner</a>
+            <a href="Zahlensystemrechner.html">Zahlensystemrechner</a>
+            <a href="passwort.generator.html">Passwort Generator</a>
+            <a href="portmap.html">Portmap</a>
+        </div>
+        <main>
+            <div class="tool-panel">
+                <h1 class="tool-panel-title">Subnetzrechner</h1>
+                <div class="input-row">
+                    <input type="text"   id="ip"   placeholder="IP-Adresse (z.B. 192.168.1.0)">
+                    <input type="number" id="cidr" placeholder="CIDR (z.B. 24)" min="0" max="32">
+                    <button id="btnBerechnen">Berechnen</button>
+                </div>
+                <div id="ergebnis"></div>
+            </div>
+        </main>
+
+        <script>
+        function zahlZuIP(zahl) {
+            return [
+                (zahl >>> 24) & 255,
+                (zahl >>> 16) & 255,
+                (zahl >>> 8)  & 255,
+                 zahl         & 255
+            ].join(".");
+        }
+
+        function berechnen() {
+            const ip       = document.getElementById("ip").value.trim();
+            const cidr     = document.getElementById("cidr").value.trim();
+            const ergebnis = document.getElementById("ergebnis");
+
+            const teile = ip.split(".");
+            if (teile.length !== 4 || teile.some(t => isNaN(t) || t === "")) {
+                ergebnis.innerText = "Ungültige IP-Adresse.";
+                return;
+            }
+            if (cidr === "" || +cidr < 0 || +cidr > 32) {
+                ergebnis.innerText = "CIDR muss zwischen 0 und 32 liegen.";
+                return;
+            }
+
+            const ipZahl    = (parseInt(teile[0]) << 24) |
+                              (parseInt(teile[1]) << 16) |
+                              (parseInt(teile[2]) << 8)  |
+                               parseInt(teile[3]);
+            const maske     = -1 << (32 - parseInt(cidr));
+            const netzwerk  = ipZahl & maske;
+            const broadcast = netzwerk | ~maske;
+            const hosts     = Math.pow(2, 32 - parseInt(cidr)) - 2;
+
+            const wildcard = ~maske;
+
+            ergebnis.innerText =
+                "Netzwerkadresse:  " + zahlZuIP(netzwerk)        + "\n" +
+                "Subnetzmaske:     " + zahlZuIP(maske)           + "\n" +
+                "Wildcard-Maske:   " + zahlZuIP(wildcard >>> 0)  + "\n" +
+                "Broadcast:        " + zahlZuIP(broadcast >>> 0) + "\n" +
+                "Nutzbare Hosts:   " + (hosts > 0 ? hosts : 0);
+        }
+
+        document.getElementById("btnBerechnen").addEventListener("click", berechnen);
+        document.getElementById("ip").addEventListener("keydown",   e => e.key === "Enter" && berechnen());
+        document.getElementById("cidr").addEventListener("keydown", e => e.key === "Enter" && berechnen());
+        </script>
+    </body>
+</html>

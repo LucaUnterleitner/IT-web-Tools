@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="de">
+    <head>
+        <meta charset="UTF-8">
+        <title>Zahlensystemrechner – IT-Web Tools</title>
+        <link rel="icon" type="image/png" href="../icons8-macbook-einstellungen-windows-11-color-32.png">
+        <link rel="stylesheet" href="../styles.css">
+    </head>
+    <body>
+        <div id="sidebar">
+            <img class="sidebar-logo" src="../logo.png" alt="BearingPoint Logo">
+            <h1>IT-Web Tools</h1>
+            <h5>ein tool wählen</h5>
+            <a href="../index.html">Startseite</a>
+            <a href="subnetzrechner.html">Subnetzrechner</a>
+            <a href="Zahlensystemrechner.html">Zahlensystemrechner</a>
+            <a href="passwort.generator.html">Passwort Generator</a>
+            <a href="portmap.html">Portmap</a>
+        </div>
+        <main>
+            <div class="tool-panel">
+                <h1 class="tool-panel-title">Zahlensystemrechner</h1>
+                <div class="input-row">
+                    <input type="text" id="bin" placeholder="Binär (Basis 2)">
+                    <input type="text" id="dez" placeholder="Dezimal (Basis 10)">
+                    <input type="text" id="okt" placeholder="Oktal (Basis 8)">
+                    <input type="text" id="hex" placeholder="Hexadezimal (Basis 16)">
+                    <button id="btnUmrechnen">umrechnen</button>
+                </div>
+                <div id="ergebnis"></div>
+            </div>
+        </main>
+
+        <script>
+        const felder = {
+            bin: { basis: 2,  el: document.getElementById("bin") },
+            dez: { basis: 10, el: document.getElementById("dez") },
+            okt: { basis: 8,  el: document.getElementById("okt") },
+            hex: { basis: 16, el: document.getElementById("hex") },
+        };
+
+        document.getElementById("btnUmrechnen").addEventListener("click", function () {
+            const ergebnis = document.getElementById("ergebnis");
+
+            let quelle = null;
+            for (const [name, f] of Object.entries(felder)) {
+                if (f.el.value.trim() !== "") {
+                    quelle = { name, ...f };
+                    break;
+                }
+            }
+
+            if (!quelle) {
+                ergebnis.innerText = "Bitte mindestens ein Feld ausfüllen.";
+                return;
+            }
+
+            const wert = parseInt(quelle.el.value.trim(), quelle.basis);
+
+            if (isNaN(wert) || wert < 0) {
+                ergebnis.innerText = "Ungültige Eingabe.";
+                return;
+            }
+
+            ergebnis.innerText =
+                "Binär (2):        " + wert.toString(2)                    + "\n" +
+                "Dezimal (10):     " + wert.toString(10)                   + "\n" +
+                "Oktal (8):        " + wert.toString(8)                    + "\n" +
+                "Hexadezimal (16): " + wert.toString(16).toUpperCase();
+        });
+        </script>
+    </body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="de">
+    <head>
+        <meta charset="UTF-8">
+        <title>Passwort Generator – IT-Web Tools</title>
+        <link rel="icon" type="image/png" href="../icons8-macbook-einstellungen-windows-11-color-32.png">
+        <link rel="stylesheet" href="../styles.css">
+    </head>
+    <body>
+        <div id="sidebar">
+            <img class="sidebar-logo" src="../logo.png" alt="BearingPoint Logo">
+            <h1>IT-Web Tools</h1>
+            <h5>ein tool wählen</h5>
+            <a href="../index.html">Startseite</a>
+            <a href="subnetzrechner.html">Subnetzrechner</a>
+            <a href="Zahlensystemrechner.html">Zahlensystemrechner</a>
+            <a href="passwort.generator.html">Passwort Generator</a>
+            <a href="portmap.html">Portmap</a>
+        </div>
+        <main>
+            <h1 class="tool-panel-title">Passwort Generator</h1>
+                <button id="btnGenerieren">Passwort generieren</button>
+                <button id="länge">Länge ändern</button>
+                <div id="ergebnis"></div>
+            <script>
+                var laenge = 12;
+                document.getElementById("btnGenerieren").addEventListener("click", function() {
+                    var zeichen = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+";
+                    var passwort = "";
+                    for (var i = 0; i < laenge; i++) {
+                        passwort += zeichen.charAt(Math.floor(Math.random() * zeichen.length));
+                    }
+                    document.getElementById("ergebnis").textContent = "Generiertes Passwort: " + passwort;
+                    
+                });
+                document.getElementById("länge").addEventListener("click", function() {
+                    var neueLaenge = prompt("Geben Sie die gewünschte Länge des Passworts ein:", "12");
+                    if (neueLaenge !== null && !isNaN(neueLaenge) && neueLaenge > 0) {
+                        laenge = parseInt(neueLaenge);
+                        alert("Die Länge des Passworts wurde auf " + laenge + " geändert.");
+                    } else {
+                        alert("Ungültige Eingabe. Bitte geben Sie eine positive Zahl ein.");
+                    }
+                });
+            </script>
+
+        </main>
+    </body>
+</html>
+
