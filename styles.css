@@ -1,13 +1,12 @@
 :root {
-    --bg: #f5f5f5;
+    --bg: #f3f6f9;
     --surface: #ffffff;
-    --text: #000000;
-    --muted: #555555;
-    --primary: #FF3D47;
-    --primary-dark: #e62d36;
-    --accent: #330000;
-    --deep-red: #330000;
-    --bearing-red: #FF3D47;
+    --text: #1f2933;
+    --muted: #60707b;
+    --primary: #ff8800;
+    --primary-dark: #ffae00;
+    --accent: #830000;
+    --deep-red: #9e0000;
 }
 
 * {
@@ -220,21 +219,6 @@ input[type="number"]:focus {
 .p1 {
     font-size: 24px;
     font-weight: bold;
-}
-
-/* ── Logos ── */
-
-.index-logo {
-    height: 55px;
-    margin-bottom: 20px;
-    filter: brightness(0) invert(1);
-}
-
-.sidebar-logo {
-    height: 38px;
-    margin-bottom: 14px;
-    display: block;
-    filter: brightness(0) invert(1);
 }
 
 /* ── Index Startseite ── */
